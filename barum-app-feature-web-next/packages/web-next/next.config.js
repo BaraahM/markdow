@@ -6,8 +6,6 @@ const nextConfig = {
     '@platejs/core',
     '@platejs/basic-nodes',
     '@platejs/basic-styles',
-    '@platejs/ai',
-    '@platejs/callout',
     '@platejs/code-block',
     '@platejs/comment',
     '@platejs/date',
@@ -24,7 +22,6 @@ const nextConfig = {
     '@platejs/table',
     '@platejs/toggle',
     '@platejs/utils',
-    '@platejs/slate',
     'slate',
     'slate-react'
   ],
@@ -34,4 +31,5 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
 //222

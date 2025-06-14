@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 // Replace deprecated imports
-import type { TValue } from '@platejs/slate';
+import type { Value } from 'platejs';
 import { withProps } from '@udecode/cn';
 
 // Updated plugin imports
@@ -28,7 +28,7 @@ import { DatePlugin } from '@platejs/date/react';
 import { EmojiInputPlugin } from '@platejs/emoji/react';
 import { ExcalidrawPlugin } from '@platejs/excalidraw/react';
 import { HeadingPlugin, TocPlugin } from '@platejs/basic-nodes/react';
-import { HighlightPlugin } from '@platejs/basic-styles/react';
+import { HighlightPlugin } from '@platejs/basic-nodes/react';
 import { HorizontalRulePlugin } from '@platejs/basic-nodes/react';
 import { KbdPlugin } from '@platejs/basic-nodes/react';
 import { ColumnItemPlugin, ColumnPlugin } from '@platejs/layout/react';
