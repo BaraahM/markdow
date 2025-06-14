@@ -4,7 +4,7 @@ import * as React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-import { Plate } from '@udecode/plate/react';
+import { Plate, PlateContent } from 'platejs/react';
 import { ArrowLeft, User } from 'lucide-react';
 
 import { useCreateEditor } from '@/components/editor/use-create-editor';
@@ -73,3 +73,4 @@ export function PlateEditor() {
     </DndProvider>
   );
 }
+//22

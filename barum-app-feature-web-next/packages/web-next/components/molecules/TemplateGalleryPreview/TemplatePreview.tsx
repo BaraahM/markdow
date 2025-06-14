@@ -12,7 +12,7 @@ const TemplatePreview = ({ selectedTemplate }: TemplatePreviewProps) => {
 
   const handleStartFromTemplate = () => {
     if (selectedTemplate) {
-f      const searchParams = new URLSearchParams({
+      const searchParams = new URLSearchParams({
         templateId: selectedTemplate.id?.toString() || '',
         templateName: selectedTemplate.name,
         templateContent: selectedTemplate.content

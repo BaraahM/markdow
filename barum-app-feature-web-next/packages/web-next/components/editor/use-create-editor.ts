@@ -1,11 +1,12 @@
-
 'use client';
 import * as React from 'react';
 
-import type { Value } from '@udecode/plate-common';
-
+// Replace deprecated imports
+import type { TValue } from '@platejs/slate';
 import { withProps } from '@udecode/cn';
-import { AIPlugin } from '@udecode/plate-ai/react';
+
+// Updated plugin imports
+import { AIPlugin } from '@platejs/ai/react';
 import {
   BoldPlugin,
   CodePlugin,
@@ -14,28 +15,28 @@ import {
   SubscriptPlugin,
   SuperscriptPlugin,
   UnderlinePlugin,
-} from '@udecode/plate-basic-marks/react';
-import { BlockquotePlugin } from '@udecode/plate-block-quote/react';
-import { CalloutPlugin } from '@udecode/plate-callout/react';
+} from '@platejs/basic-nodes/react';
+import { BlockquotePlugin } from '@platejs/basic-nodes/react';
+import { CalloutPlugin } from '@platejs/callout/react';
 import {
   CodeBlockPlugin,
   CodeLinePlugin,
   CodeSyntaxPlugin,
-} from '@udecode/plate-code-block/react';
-import { CommentsPlugin } from '@udecode/plate-comments/react';
-import { DatePlugin } from '@udecode/plate-date/react';
-import { EmojiInputPlugin } from '@udecode/plate-emoji/react';
-import { ExcalidrawPlugin } from '@udecode/plate-excalidraw/react';
-import { HeadingPlugin, TocPlugin } from '@udecode/plate-heading/react';
-import { HighlightPlugin } from '@udecode/plate-highlight/react';
-import { HorizontalRulePlugin } from '@udecode/plate-horizontal-rule/react';
-import { KbdPlugin } from '@udecode/plate-kbd/react';
-import { ColumnItemPlugin, ColumnPlugin } from '@udecode/plate-layout/react';
-import { LinkPlugin } from '@udecode/plate-link/react';
+} from '@platejs/code-block/react';
+import { CommentPlugin } from '@platejs/comment/react';
+import { DatePlugin } from '@platejs/date/react';
+import { EmojiInputPlugin } from '@platejs/emoji/react';
+import { ExcalidrawPlugin } from '@platejs/excalidraw/react';
+import { HeadingPlugin, TocPlugin } from '@platejs/basic-nodes/react';
+import { HighlightPlugin } from '@platejs/basic-styles/react';
+import { HorizontalRulePlugin } from '@platejs/basic-nodes/react';
+import { KbdPlugin } from '@platejs/basic-nodes/react';
+import { ColumnItemPlugin, ColumnPlugin } from '@platejs/layout/react';
+import { LinkPlugin } from '@platejs/link/react';
 import {
   EquationPlugin,
   InlineEquationPlugin,
-} from '@udecode/plate-math/react';
+} from '@platejs/math/react';
 import {
   AudioPlugin,
   FilePlugin,
@@ -43,26 +44,26 @@ import {
   MediaEmbedPlugin,
   PlaceholderPlugin,
   VideoPlugin,
-} from '@udecode/plate-media/react';
+} from '@platejs/media/react';
 import {
   MentionInputPlugin,
   MentionPlugin,
-} from '@udecode/plate-mention/react';
-import { SlashInputPlugin } from '@udecode/plate-slash-command/react';
-import { SuggestionPlugin } from '@udecode/plate-suggestion/react';
+} from '@platejs/mention/react';
+import { SlashInputPlugin } from '@platejs/slash-command/react';
+import { SuggestionPlugin } from '@platejs/suggestion/react';
 import {
   TableCellHeaderPlugin,
   TableCellPlugin,
   TablePlugin,
   TableRowPlugin,
-} from '@udecode/plate-table/react';
-import { TogglePlugin } from '@udecode/plate-toggle/react';
+} from '@platejs/table/react';
+import { TogglePlugin } from '@platejs/toggle/react';
 import {
   type CreatePlateEditorOptions,
   ParagraphPlugin,
   PlateLeaf,
   usePlateEditor,
-} from '@udecode/plate-common/react';
+} from 'platejs/react';
 
 import { copilotPlugins } from '@/components/editor/plugins/copilot-plugins';
 import { editorPlugins } from '@/components/editor/plugins/editor-plugins';
@@ -120,7 +121,7 @@ export const viewComponents = {
   [CodeSyntaxPlugin.key]: CodeSyntaxLeaf,
   [ColumnItemPlugin.key]: ColumnElement,
   [ColumnPlugin.key]: ColumnGroupElement,
-  [CommentsPlugin.key]: CommentLeaf,
+  [CommentPlugin.key]: CommentLeaf,
   [DatePlugin.key]: DateElement,
   [EquationPlugin.key]: EquationElement,
   [ExcalidrawPlugin.key]: ExcalidrawElement,
@@ -297,7 +298,7 @@ export const useCreateEditor = (
     ];
   }, []);
   
-  return usePlateEditor<Value, (typeof editorPlugins)[number]>(
+  return usePlateEditor<TValue, (typeof editorPlugins)[number]>(
     {
       override: {
         components: {
@@ -310,6 +311,7 @@ export const useCreateEditor = (
         },
         ...override,
       },
+
       plugins: [
         ...copilotPlugins,
         ...editorPlugins,

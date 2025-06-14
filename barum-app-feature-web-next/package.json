@@ -29,8 +29,35 @@
     "email:dev": "yarn workspace api email dev -p 3001 --dir src/mail/email_templates"
   },
   "dependencies": {
+    "@platejs/ai": "^49.0.1",
+    "@platejs/basic-nodes": "^49.0.0",
+    "@platejs/basic-styles": "^49.0.0",
+    "@platejs/callout": "^49.0.0",
+    "@platejs/code-block": "^49.0.0",
+    "@platejs/comment": "^49.0.0",
+    "@platejs/core": "^49.0.2",
+    "@platejs/date": "^49.0.2",
+    "@platejs/emoji": "^49.0.0",
+    "@platejs/excalidraw": "^49.0.0",
+    "@platejs/floating": "^49.0.0",
+    "@platejs/layout": "^49.0.0",
+    "@platejs/link": "^49.0.0",
+    "@platejs/math": "^49.0.0",
+    "@platejs/media": "^49.0.0",
+    "@platejs/mention": "^49.0.0",
+    "@platejs/slash-command": "^49.0.0",
+    "@platejs/slate": "^49.0.2",
+    "@platejs/suggestion": "^49.0.0",
+    "@platejs/table": "^49.0.1",
+    "@platejs/toggle": "^49.0.0",
+    "@platejs/utils": "^49.0.2",
     "concurrently": "^8.2.2",
+    "platejs": "^49.0.2",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "rimraf": "^5.0.5",
+    "slate": "^0.117.0",
+    "slate-react": "^0.117.1",
     "turbo": "^2.5.4"
   },
   "resolutions": {
@@ -53,5 +80,8 @@
     "clsx": "^2.0.0",
     "prop-types": "^15.8.1"
   },
-  "packageManager": "yarn@3.7.0"
+  "packageManager": "yarn@3.7.0",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
 }
