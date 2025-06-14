@@ -1,79 +1,71 @@
-import { Box, Paper, Group } from '@mantine/core';
-import Text from '@/components/atoms/Text/Text';
-import Button from '@/components/atoms/Button/Button';
-import { Template } from '@/components/molecules/TemplateGalleryList/TemplateGalleryList';
+'use client';
+
+import React from 'react';
+import { useRouter } from 'next/navigation';
+
+interface Template {
+  id: string;
+  name: string;
+  content: string;
+  category?: string;
+}
 
 interface TemplatePreviewProps {
   selectedTemplate: Template | null;
+  templates: Template[];
 }
 
-const TemplatePreview = ({ selectedTemplate }: TemplatePreviewProps) => {
+const TemplatePreview: React.FC<TemplatePreviewProps> = ({ 
+  selectedTemplate, 
+  templates 
+}) => {
+  const router = useRouter();
+
+  const handleStartFromTemplate = (template: Template) => {
+    // Navigate to editor with template data
+    const templateData = encodeURIComponent(JSON.stringify({
+      id: template.id,
+      name: template.name,
+      content: template.content,
+      category: template.category
+    }));
+    
+    router.push(`/editor?template=${templateData}`);
+  };
+
   if (!selectedTemplate) {
     return (
-      <Box
-        style={{
-          flex: 1,
-          backgroundColor: 'var(--mantine-color-gray-0)',
-          padding: '2rem',
-          overflow: 'auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <Text size="lg" c="dimmed">
-          Select a template to view its preview
-        </Text>
-      </Box>
+      <div className="flex items-center justify-center h-64 text-gray-500">
+        Select a template to view its preview
+      </div>
     );
   }
 
   return (
-    <Box
-      style={{
-        flex: 1,
-        backgroundColor: 'var(--mantine-color-gray-0)',
-        padding: '2rem',
-        overflow: 'auto'
-      }}
-    >
-      <Paper
-        style={{
-          maxWidth: 800,
-          margin: '0 auto',
-          padding: '2.5rem',
-          border: '1px solid var(--mantine-color-gray-3)',
-          boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-          borderRadius: 0,
-        }}
-      >
-        <Text size="xl" fw={600} mb="xl" ta="center" c="dark.6">
+    <div className="bg-white rounded-lg shadow-lg p-6">
+      <div className="mb-4">
+        <h2 className="text-2xl font-bold text-gray-900">
           {selectedTemplate.name}
-        </Text>
-
-        <Text size="md" mb="xl" style={{ lineHeight: 1.6 }} c="dark.6">
+        </h2>
+      </div>
+      
+      <div className="mb-6">
+        <div className="prose prose-sm max-w-none">
           {selectedTemplate.content}
-        </Text>
-
-        <Group justify="flex-end" mt="xl">
-          <Button
-            radius={50}
-            customStyles={{
-              backgroundColor: 'var(--mantine-color-dark-9)',
-              color: 'var(--mantine-color-white)',
-              transition: 'all 0.2s ease',
-            }}
-            customHoverStyles={{
-              backgroundColor: 'var(--mantine-color-dark-7)',
-              transform: 'scale(1.03)',
-            }}
-          >
-            Start from this template
-          </Button>
-        </Group>
-      </Paper>
-    </Box>
+        </div>
+      </div>
+      
+      <div className="flex justify-end">
+        <button
+          onClick={() => handleStartFromTemplate(selectedTemplate)}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200"
+        >
+          Start from this template
+        </button>
+      </div>
+    </div>
   );
 };
 
 export default TemplatePreview;
+//22

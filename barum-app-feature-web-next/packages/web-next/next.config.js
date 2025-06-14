@@ -48,17 +48,9 @@ const nextConfig = {
     '@udecode/plate-trailing-block',
   ],
   experimental: {
-    externalDir: true,
-  },
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-    };
-    return config;
+    esmExternals: 'loose',
   },
 };
 
 module.exports = nextConfig;
-
 //22
