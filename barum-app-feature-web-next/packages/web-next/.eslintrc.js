@@ -1,6 +1,14 @@
+const path = require('path');
+
 module.exports = {
   extends: ['next/core-web-vitals'],
-  rules: {
-    // Add any custom rules here
+  parserOptions: {
+    babelOptions: {
+      presets: [
+        require.resolve('next/babel', {
+          paths: [path.resolve(__dirname, '../../')],
+        }),
+      ],
+    },
   },
-}; 
+};

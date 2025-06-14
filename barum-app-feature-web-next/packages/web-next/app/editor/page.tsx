@@ -2,8 +2,20 @@
 
 import React, { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Plate, usePlateEditor } from '@platejs/react';
-import { Editor, EditorContainer } from '@/components/ui/editor';
+import {
+  BoldPlugin,
+  ItalicPlugin,
+  UnderlinePlugin,
+  StrikethroughPlugin,
+  CodePlugin,
+  SubscriptPlugin,
+  SuperscriptPlugin,
+  BlockquotePlugin,
+  HeadingPlugin,
+  ParagraphPlugin
+} from '@platejs/basic-nodes/react';
+import { Plate, usePlateEditor } from 'platejs/react';
+import { PlateContent } from 'platejs/react';
 
 interface TemplateData {
   id: string;
@@ -14,11 +26,28 @@ interface TemplateData {
 
 function EditorContent() {
   const searchParams = useSearchParams();
-  const [initialValue, setInitialValue] = useState<any[]>([]);
-  
+  const [initialValue, setInitialValue] = useState<any[]>([
+    {
+      type: 'p',
+      children: [{ text: 'Start editing your document...' }],
+    },
+  ]);
+
   const editor = usePlateEditor({
     plugins: [
-      // 22
+      // Basic text formatting
+      BoldPlugin,
+      ItalicPlugin,
+      UnderlinePlugin,
+      StrikethroughPlugin,
+      CodePlugin,
+      SubscriptPlugin,
+      SuperscriptPlugin,
+      
+      // Block elements
+      ParagraphPlugin,
+      HeadingPlugin,
+      BlockquotePlugin,
     ],
     value: initialValue,
   });
@@ -28,8 +57,11 @@ function EditorContent() {
     if (templateParam) {
       try {
         const templateData: TemplateData = JSON.parse(decodeURIComponent(templateParam));
-        // Convert template content to PlateJS format
         const plateValue = [
+          {
+            type: 'h1',
+            children: [{ text: templateData.name }],
+          },
           {
             type: 'p',
             children: [{ text: templateData.content }],
@@ -44,12 +76,15 @@ function EditorContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto py-8">
-        <Plate editor={editor}>
-          <EditorContainer>
-            <Editor placeholder="Start editing your document..." />
-          </EditorContainer>
-        </Plate>
+      <div className="container mx-auto py-8 px-4">
+        <div className="bg-white rounded-lg shadow-lg p-8">
+          <Plate editor={editor}>
+            <PlateContent 
+              className="min-h-[500px] p-4 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Start editing your document..."
+            />
+          </Plate>
+        </div>
       </div>
     </div>
   );
@@ -57,10 +92,11 @@ function EditorContent() {
 
 export default function EditorPage() {
   return (
-    <Suspense fallback={<div>Loading editor...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">Loading editor...</div>}>
       <EditorContent />
     </Suspense>
   );
 }
+
 
 //22
