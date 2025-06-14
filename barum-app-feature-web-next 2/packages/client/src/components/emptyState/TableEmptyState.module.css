@@ -1,5 +1,0 @@
-.container {
-  :global(.mantine-datatable-empty-state[data-active]) & {
-    pointer-events: all;
-  }
-}

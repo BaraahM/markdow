@@ -1,5 +1,0 @@
-apps:
-  - name: "nextjs"
-    script: npm
-    args: start
-    watch: true
