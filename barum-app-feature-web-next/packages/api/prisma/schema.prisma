@@ -11,6 +11,7 @@ generator client {
 
 generator dbml {
   provider = "prisma-dbml-generator"
+  output   = "./prisma/dbml"
 }
 
 model User {

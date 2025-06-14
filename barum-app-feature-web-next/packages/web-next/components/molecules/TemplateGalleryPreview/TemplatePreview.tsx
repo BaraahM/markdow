@@ -1,67 +1,55 @@
 'use client';
 
-import React from 'react';
 import { useRouter } from 'next/navigation';
-
-interface Template {
-  id: string;
-  name: string;
-  content: string;
-  category?: string;
-}
+import { Template } from '@/components/molecules/TemplateGalleryList/TemplateGalleryList';
 
 interface TemplatePreviewProps {
   selectedTemplate: Template | null;
-  templates: Template[];
 }
 
-const TemplatePreview: React.FC<TemplatePreviewProps> = ({ 
-  selectedTemplate, 
-  templates 
-}) => {
+const TemplatePreview = ({ selectedTemplate }: TemplatePreviewProps) => {
   const router = useRouter();
 
-  const handleStartFromTemplate = (template: Template) => {
-    // Navigate to editor with template data
-    const templateData = encodeURIComponent(JSON.stringify({
-      id: template.id,
-      name: template.name,
-      content: template.content,
-      category: template.category
-    }));
-    
-    router.push(`/editor?template=${templateData}`);
+  const handleStartFromTemplate = () => {
+    if (selectedTemplate) {
+f      const searchParams = new URLSearchParams({
+        templateId: selectedTemplate.id?.toString() || '',
+        templateName: selectedTemplate.name,
+        templateContent: selectedTemplate.content
+      });
+      router.push(`/editor?${searchParams.toString()}`);
+    }
   };
 
   if (!selectedTemplate) {
     return (
-      <div className="flex items-center justify-center h-64 text-gray-500">
-        Select a template to view its preview
+      <div className="flex-1 bg-gray-50 p-8 overflow-auto flex items-center justify-center">
+        <p className="text-lg text-gray-500">
+          Select a template to view its preview
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <div className="mb-4">
-        <h2 className="text-2xl font-bold text-gray-900">
+    <div className="flex-1 bg-gray-50 p-8 overflow-auto">
+      <div className="max-w-4xl mx-auto bg-white p-10 border border-gray-200 shadow-sm">
+        <h1 className="text-2xl font-semibold mb-8 text-center text-gray-800">
           {selectedTemplate.name}
-        </h2>
-      </div>
-      
-      <div className="mb-6">
-        <div className="prose prose-sm max-w-none">
+        </h1>
+
+        <div className="text-base mb-8 leading-relaxed text-gray-700">
           {selectedTemplate.content}
         </div>
-      </div>
-      
-      <div className="flex justify-end">
-        <button
-          onClick={() => handleStartFromTemplate(selectedTemplate)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium transition-colors duration-200"
-        >
-          Start from this template
-        </button>
+
+        <div className="flex justify-end mt-8">
+          <button
+            onClick={handleStartFromTemplate}
+            className="px-8 py-3 bg-gray-900 text-white rounded-full hover:bg-gray-700 transform hover:scale-105 transition-all duration-200 font-medium"
+          >
+            Start from this template
+          </button>
+        </div>
       </div>
     </div>
   );

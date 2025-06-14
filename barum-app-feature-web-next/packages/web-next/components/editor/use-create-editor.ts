@@ -1,7 +1,8 @@
+
 'use client';
 import * as React from 'react';
 
-import type { Value } from '@udecode/plate';
+import type { Value } from '@udecode/plate-common';
 
 import { withProps } from '@udecode/cn';
 import { AIPlugin } from '@udecode/plate-ai/react';
@@ -25,8 +26,7 @@ import { CommentsPlugin } from '@udecode/plate-comments/react';
 import { DatePlugin } from '@udecode/plate-date/react';
 import { EmojiInputPlugin } from '@udecode/plate-emoji/react';
 import { ExcalidrawPlugin } from '@udecode/plate-excalidraw/react';
-import { HEADING_KEYS } from '@udecode/plate-heading';
-import { TocPlugin } from '@udecode/plate-heading/react';
+import { HeadingPlugin, TocPlugin } from '@udecode/plate-heading/react';
 import { HighlightPlugin } from '@udecode/plate-highlight/react';
 import { HorizontalRulePlugin } from '@udecode/plate-horizontal-rule/react';
 import { KbdPlugin } from '@udecode/plate-kbd/react';
@@ -62,7 +62,7 @@ import {
   ParagraphPlugin,
   PlateLeaf,
   usePlateEditor,
-} from '@udecode/plate/react';
+} from '@udecode/plate-common/react';
 
 import { copilotPlugins } from '@/components/editor/plugins/copilot-plugins';
 import { editorPlugins } from '@/components/editor/plugins/editor-plugins';
@@ -125,12 +125,13 @@ export const viewComponents = {
   [EquationPlugin.key]: EquationElement,
   [ExcalidrawPlugin.key]: ExcalidrawElement,
   [FilePlugin.key]: MediaFileElement,
-  [HEADING_KEYS.h1]: withProps(HeadingElement, { variant: 'h1' }),
-  [HEADING_KEYS.h2]: withProps(HeadingElement, { variant: 'h2' }),
-  [HEADING_KEYS.h3]: withProps(HeadingElement, { variant: 'h3' }),
-  [HEADING_KEYS.h4]: withProps(HeadingElement, { variant: 'h4' }),
-  [HEADING_KEYS.h5]: withProps(HeadingElement, { variant: 'h5' }),
-  [HEADING_KEYS.h6]: withProps(HeadingElement, { variant: 'h6' }),
+  [HeadingPlugin.key]: withProps(HeadingElement, { variant: 'h1' }),
+  'h1': withProps(HeadingElement, { variant: 'h1' }),
+  'h2': withProps(HeadingElement, { variant: 'h2' }),
+  'h3': withProps(HeadingElement, { variant: 'h3' }),
+  'h4': withProps(HeadingElement, { variant: 'h4' }),
+  'h5': withProps(HeadingElement, { variant: 'h5' }),
+  'h6': withProps(HeadingElement, { variant: 'h6' }),
   [HighlightPlugin.key]: HighlightLeaf,
   [HorizontalRulePlugin.key]: HrElement,
   [ImagePlugin.key]: ImageElement,
@@ -257,7 +258,7 @@ export const useCreateEditor = (
         children: [{ text: '2.1 Initial Equity' }],
         type: 'h2',
       },
-      {//
+      {
         children: [
           {
             text: 'The total equity of the Company shall be divided among the Co-Founders as follows:',
@@ -265,7 +266,7 @@ export const useCreateEditor = (
         ],
         type: 'p',
       },
-      {//
+      {
         children: [
           {
             text: 'Co-Founder 1: [PERCENTAGE]%',
@@ -273,7 +274,7 @@ export const useCreateEditor = (
         ],
         type: 'p',
       },
-      {//
+      {
         children: [
           {
             text: 'Co-Founder 2: [PERCENTAGE]%',
@@ -281,7 +282,7 @@ export const useCreateEditor = (
         ],
         type: 'p',
       },
-      {//
+      {
         children: [
           {
             text: 'Co-Founder 3: [PERCENTAGE]%',
@@ -293,10 +294,9 @@ export const useCreateEditor = (
         children: [{ text: '2.2 Equity Type' }],
         type: 'h2',
       },
-
-      //
     ];
   }, []);
+  
   return usePlateEditor<Value, (typeof editorPlugins)[number]>(
     {
       override: {
@@ -317,7 +317,6 @@ export const useCreateEditor = (
         FloatingToolbarPlugin,
       ],
       value: initialValue,
-
       ...options,
     },
     deps
